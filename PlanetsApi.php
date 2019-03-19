@@ -33,7 +33,9 @@ class PlanetsApi
     public function printRez()
     {
         foreach ($this->resivedStrings as $string) {
-            $json = json_decode($string);
+            $json = json_decode($string,true);
+          //  $planets = $json['planets"];
+            $json=$json["results"];   //плдучаем массив с планетами
             print_r($json);
         }
     }

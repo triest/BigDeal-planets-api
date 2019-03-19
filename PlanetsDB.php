@@ -11,11 +11,23 @@ class PlanetsApi
     public function insertDataTodataBese()
     {
         try {
-            $dbh = new PDO('mysql:host='.$this->host.';dbname='.$this->databese,$this->login,$this->password);
-            $stmt = $dbh->prepare("INSERT INTO REGISTRY (name, value) VALUES (:name, :value)");
+            $dbh = new PDO('mysql:host='.$this->host.';dbname='.$this->databese, $this->login, $this->password);
+            //  $stmt = $dbh->prepare("INSERT INTO REGISTRY (name, value) VALUES (:name, :value)");
+            $stmt = $dbh->prepare("INSERT INTO `planets`( `name`, `rotation_period`, `orbital_period`, 
+                                                                  `diameter`, `climate`, `gravity`,
+                                                                   `terrain`, `surface_water`, `population`,
+                                                                    `created`, `edited`, `url`
+            ) 
+                                                              VALUES (:name,:rotation_period,:orbital_period,
+                                                              :diameter,:climate,:terrain,
+                                                              :surface_water,:population,:created,
+                                                              :edited,:url");
+
+            $stmt->execute();
+
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage()."<br/>";
-            die();
+            //  .//    die();
         }
 
     }
@@ -85,4 +97,4 @@ class PlanetsApi
         $this->databese = $databese;
     }
 
-
+}
