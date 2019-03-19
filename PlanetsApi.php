@@ -5,6 +5,8 @@
  * Date: 18.03.2019
  * Time: 21:08
  */
+require_once "PlanetsDB.php";
+
 
 class PlanetsApi
 {
@@ -32,11 +34,16 @@ class PlanetsApi
 
     public function printRez()
     {
+        $planetDn = new PlanetsDB();
+
         foreach ($this->resivedStrings as $string) {
-            $json = json_decode($string,true);
-          //  $planets = $json['planets"];
-            $json=$json["results"];   //плдучаем массив с планетами
-            print_r($json);
+            $json = json_decode($string, true);
+            //  $planets = $json['planets"];
+            $planetArray = $json["results"];   //плдучаем массив с планетами
+            //print_r($json);
+            foreach ($planetArray as $item) {
+                $planetDn->prepareDataToInsert($item);
+            }
         }
     }
 

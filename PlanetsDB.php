@@ -1,35 +1,116 @@
 <?php
 
-class PlanetsApi
+class PlanetsDB
 {
-    private $host = "";
+    private $host = "localhost";
     private $password = "";
-    private $login = "";
-    private $databese = "";
+    private $login = "root";
+    private $databese = "planets_db";
+
+    /**
+     * PlanetsDB constructor.
+     *
+     * @param string $host
+     * @param string $password
+     * @param string $login
+     * @param string $databese
+     */
+    /*  public function __construct(string $host, string $password, string $login, string $databese)
+      {
+          $this->host = $host;
+          $this->password = $password;
+          $this->login = $login;
+          $this->databese = $databese;
+      }
+  */
 
 
-    public function insertDataTodataBese()
+    public function insertDataTodataBese($array)
     {
         try {
-            $dbh = new PDO('mysql:host='.$this->host.';dbname='.$this->databese, $this->login, $this->password);
+            $dbh = new PDO("mysql:host=$this->host;dbname=$this->databese", $this->login, $this->password);
             //  $stmt = $dbh->prepare("INSERT INTO REGISTRY (name, value) VALUES (:name, :value)");
-            $stmt = $dbh->prepare("INSERT INTO `planets`( `name`, `rotation_period`, `orbital_period`, 
-                                                                  `diameter`, `climate`, `gravity`,
-                                                                   `terrain`, `surface_water`, `population`,
-                                                                    `created`, `edited`, `url`
-            ) 
-                                                              VALUES (:name,:rotation_period,:orbital_period,
-                                                              :diameter,:climate,:terrain,
-                                                              :surface_water,:population,:created,
-                                                              :edited,:url");
+            $stmt = $dbh->prepare('INSERT INTO planets( name) 
+                                                              VALUES (:name)');
+            /*    if ($array["name"] != null) {
 
-            $stmt->execute();
+                    $stmt->bindParam(':name', $array["name"]);
+                } else {
+
+                }
+                if ($array["rotation_period"] != null) {
+                    $stmt->bindParam(':rotation_period', $array["rotation_period"]);
+                } else {
+
+                }
+                if ($array["orbital_period"] != null) {
+                    $stmt->bindParam(':orbital_period', $array["orbital_period"]);
+                } else {
+
+                }
+                if ($array["diameter"] != null) {
+                    $stmt->bindParam(':diameter', $array["diameter"]);
+                } else {
+
+                }
+                if ($array["climate"] != null) {
+                    $stmt->bindParam(':climate', $array["climate"]);
+                } else {
+
+                }
+                if ($array["gravity"] != null) {
+                    $stmt->bindParam(':gravity', $array["gravity"]);
+                } else {
+
+                }
+                if ($array["terrain"] != null) {
+                    $stmt->bindParam(':terrain', $array["terrain"]);
+                } else {
+
+                }
+                if ($array["surface_water"] != null) {
+                    $stmt->bindParam(':surface_water', $array["surface_water"]);
+                } else {
+
+                }
+                if ($array["population"] != null) {
+                    $stmt->bindParam(':population', $array["population"]);
+                } else {
+
+                }
+                if ($array["created"] != null) {
+                    $stmt->bindParam(':created', $array["created"]);
+                } else {
+
+                }
+                if ($array["edited"] != null) {
+                    $stmt->bindParam(':edited', $array["edited"]);
+                } else {
+
+                }
+                if ($array["url"] != null) {
+                    $stmt->bindParam(':url', $array["url"]);
+                } else {
+
+                }*/
+            $stmt->execute([
+              //  $array["name"] != null
+                'name'=>$array["name"]
+            ]);
+          //  echo "SUb";
 
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage()."<br/>";
+            echo "Eror";
             //  .//    die();
         }
 
+    }
+
+    public function prepareDataToInsert($array)
+    {
+         print_r($array);
+        $this->insertDataTodataBese($array);
     }
 
 
