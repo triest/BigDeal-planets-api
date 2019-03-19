@@ -30,8 +30,14 @@ class PlanetsDB
         try {
             $dbh = new PDO("mysql:host=$this->host;dbname=$this->databese", $this->login, $this->password);
             //  $stmt = $dbh->prepare("INSERT INTO REGISTRY (name, value) VALUES (:name, :value)");
-            $stmt = $dbh->prepare('INSERT INTO planets( name) 
-                                                              VALUES (:name)');
+            $stmt = $dbh->prepare('INSERT INTO planets( name,rotation_period,orbital_period,
+                                                                  diameter,climate,gravity,
+                                                                  terrain,surface_water,population,
+                                                                 created,edited,url   ) 
+                                                              VALUES (:name,:rotation_period,:orbital_period,
+                                                              :diameter,:climate,:gravity,
+                                                              :terrain,:surface_water,:population,
+                                                                 :created,:edited,:url  )');
             /*    if ($array["name"] != null) {
 
                     $stmt->bindParam(':name', $array["name"]);
@@ -95,7 +101,18 @@ class PlanetsDB
                 }*/
             $stmt->execute([
               //  $array["name"] != null
-                'name'=>$array["name"]
+                'name'=>$array["name"],
+                'rotation_period'=>$array["rotation_period"],
+                'orbital_period'=>$array["orbital_period"],
+                'diameter'=>$array["diameter"],
+                'climate'=>$array["climate"],
+                'gravity'=>$array["gravity"],
+                'terrain'=>$array["terrain"],
+                'surface_water'=>$array["surface_water"],
+                'population'=>$array["population"],
+                'created'=>$array["created"],
+                'edited'=>$array["edited"],
+                'url'=>$array["url"]
             ]);
           //  echo "SUb";
 
