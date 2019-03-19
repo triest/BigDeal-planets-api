@@ -29,8 +29,16 @@ class PlanetsDB
     {
         try {
             $dbh = new PDO("mysql:host=$this->host;dbname=$this->databese", $this->login, $this->password);
-            //  $stmt = $dbh->prepare("INSERT INTO REGISTRY (name, value) VALUES (:name, :value)");
-            $stmt = $dbh->prepare('INSERT INTO planets( name,rotation_period,orbital_period,
+            //check planet alredy in databese
+            $stmt = $dbh->prepare('SELECT name from planets where name=:name');
+            $stmt->execute([
+                'name' => $array["name"],
+            ]);
+            $row = $stmt->rowCount();
+            if ($row > 0) {
+
+            } else {
+                $stmt = $dbh->prepare('INSERT INTO planets( name,rotation_period,orbital_period,
                                                                   diameter,climate,gravity,
                                                                   terrain,surface_water,population,
                                                                  created,edited,url   ) 
@@ -38,95 +46,31 @@ class PlanetsDB
                                                               :diameter,:climate,:gravity,
                                                               :terrain,:surface_water,:population,
                                                                  :created,:edited,:url  )');
-            /*    if ($array["name"] != null) {
 
-                    $stmt->bindParam(':name', $array["name"]);
-                } else {
-
-                }
-                if ($array["rotation_period"] != null) {
-                    $stmt->bindParam(':rotation_period', $array["rotation_period"]);
-                } else {
-
-                }
-                if ($array["orbital_period"] != null) {
-                    $stmt->bindParam(':orbital_period', $array["orbital_period"]);
-                } else {
-
-                }
-                if ($array["diameter"] != null) {
-                    $stmt->bindParam(':diameter', $array["diameter"]);
-                } else {
-
-                }
-                if ($array["climate"] != null) {
-                    $stmt->bindParam(':climate', $array["climate"]);
-                } else {
-
-                }
-                if ($array["gravity"] != null) {
-                    $stmt->bindParam(':gravity', $array["gravity"]);
-                } else {
-
-                }
-                if ($array["terrain"] != null) {
-                    $stmt->bindParam(':terrain', $array["terrain"]);
-                } else {
-
-                }
-                if ($array["surface_water"] != null) {
-                    $stmt->bindParam(':surface_water', $array["surface_water"]);
-                } else {
-
-                }
-                if ($array["population"] != null) {
-                    $stmt->bindParam(':population', $array["population"]);
-                } else {
-
-                }
-                if ($array["created"] != null) {
-                    $stmt->bindParam(':created', $array["created"]);
-                } else {
-
-                }
-                if ($array["edited"] != null) {
-                    $stmt->bindParam(':edited', $array["edited"]);
-                } else {
-
-                }
-                if ($array["url"] != null) {
-                    $stmt->bindParam(':url', $array["url"]);
-                } else {
-
-                }*/
-            $stmt->execute([
-              //  $array["name"] != null
-                'name'=>$array["name"],
-                'rotation_period'=>$array["rotation_period"],
-                'orbital_period'=>$array["orbital_period"],
-                'diameter'=>$array["diameter"],
-                'climate'=>$array["climate"],
-                'gravity'=>$array["gravity"],
-                'terrain'=>$array["terrain"],
-                'surface_water'=>$array["surface_water"],
-                'population'=>$array["population"],
-                'created'=>$array["created"],
-                'edited'=>$array["edited"],
-                'url'=>$array["url"]
-            ]);
-          //  echo "SUb";
-
+                $stmt->execute([
+                    'name' => $array["name"],
+                    'rotation_period' => $array["rotation_period"],
+                    'orbital_period' => $array["orbital_period"],
+                    'diameter' => $array["diameter"],
+                    'climate' => $array["climate"],
+                    'gravity' => $array["gravity"],
+                    'terrain' => $array["terrain"],
+                    'surface_water' => $array["surface_water"],
+                    'population' => $array["population"],
+                    'created' => $array["created"],
+                    'edited' => $array["edited"],
+                    'url' => $array["url"],
+                ]);
+             }
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage()."<br/>";
             echo "Eror";
-            //  .//    die();
         }
 
     }
 
     public function prepareDataToInsert($array)
     {
-       //  print_r($array);
         $this->insertDataTodataBese($array);
     }
 

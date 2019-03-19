@@ -19,7 +19,6 @@ class PlanetsApi
     {
      $this->resivedStrings = array();
         try {
-            // $this->resivedString = file_get_contents($this->usr);
             array_push($this->resivedStrings, file_get_contents($this->usr));
         } catch (Exception $e) {
             echo $e;
