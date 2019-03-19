@@ -126,7 +126,7 @@ class PlanetsDB
 
     public function prepareDataToInsert($array)
     {
-         print_r($array);
+       //  print_r($array);
         $this->insertDataTodataBese($array);
     }
 

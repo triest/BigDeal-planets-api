@@ -11,19 +11,13 @@ require_once "PlanetsDB.php";
 class PlanetsApi
 {
 
-    private $usr = "https://swapi.co/api/planets/";
+    public $usr = "https://swapi.co/api/planets/";
 
-    private $resivedStrings = array();
-
-    public function Test()
-    {
-        echo "Test";
-    }
+    public $resivedStrings = array();
 
     public function GetRequwest()
     {
-        $ch = curl_init();
-        //   curl_setopt($ch, CURLOPT_URL, $this->usr);
+     $this->resivedStrings = array();
         try {
             // $this->resivedString = file_get_contents($this->usr);
             array_push($this->resivedStrings, file_get_contents($this->usr));
@@ -35,14 +29,15 @@ class PlanetsApi
     public function printRez()
     {
         $planetDn = new PlanetsDB();
-
-        foreach ($this->resivedStrings as $string) {
-            $json = json_decode($string, true);
-            //  $planets = $json['planets"];
-            $planetArray = $json["results"];   //плдучаем массив с планетами
-            //print_r($json);
-            foreach ($planetArray as $item) {
-                $planetDn->prepareDataToInsert($item);
+        while ($this->usr != null) {
+            $this->GetRequwest();
+            foreach ($this->resivedStrings as $string) {
+                $json = json_decode($string, true);
+                $planetArray = $json["results"];   //плдучаем массив с планетами
+                $this->usr = $json["next"];
+                foreach ($planetArray as $item) {
+                    $planetDn->prepareDataToInsert($item);
+                }
             }
         }
     }
