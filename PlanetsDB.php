@@ -2,10 +2,27 @@
 
 class PlanetsDB
 {
-    private $host = "localhost";
-    private $password = "";
-    private $login = "root";
-    private $databese = "planets_db";
+
+    private $host;
+    private $password ;
+    private $login ;
+    private $databese;
+
+    /**
+     * PlanetsDB constructor.
+     *
+     * @param string $host
+     * @param string $password
+     * @param string $login
+     * @param string $databese
+     */
+    public function __construct(string $host, string $password, string $login, string $databese)
+    {
+        $this->host = $host;
+        $this->password = $password;
+        $this->login = $login;
+        $this->databese = $databese;
+    }
 
 
     public function insertDataTodataBese($array)
