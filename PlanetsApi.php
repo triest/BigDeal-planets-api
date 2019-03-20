@@ -11,7 +11,7 @@ require_once "PlanetsDB.php";
 class PlanetsApi
 {
 
-    public $usr = "https://swapi.co/api/planets/";
+    public $usr = "https://swapi.co/api/planets/"; //url запроса
     private $host;
     private $password;
     private $login;
@@ -30,7 +30,7 @@ class PlanetsApi
 
 
     //запрос к API
-    public function GetRequwest()
+    private function GetRequwest()
     {
         $this->resivedStrings = array();
         try {
@@ -41,7 +41,7 @@ class PlanetsApi
         }
     }
 
-
+    //считываеие данных из запроса
     public function printRez()
     {
         $planetDn = new PlanetsDB($this->host, $this->databese, $this->login, $this->password); //класс, работающий с базой данных
@@ -52,14 +52,14 @@ class PlanetsApi
                 $planetArray = $json["results"];   //плдучаем массив с планетами
                 $this->usr = $json["next"];  //данные рзбиты по страницам. Адрес следуюзей стрницы в переменной next. Если $net==null ->данные кончились
                 foreach ($planetArray as $item) {   //проход по массиву м планетами
-                    $planetDn->prepareDataToInsert($item);
+                    $planetDn->insertDataToDatabase($item);
                 }
             }
         }
     }
 
-    //считываеие данных жля подключения из файла connect.txt
-    public function readConnectProperty()
+    //считываеие данных для подключения из файла connect.txt
+    private function readConnectProperty()
     {
         try {
             if ($file = fopen("connect.txt", "r")) {

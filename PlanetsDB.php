@@ -7,6 +7,7 @@ class PlanetsDB
     public $password = "";
     public $login;
     public $database;
+    public $created;
 
     /**
      * PlanetsDB constructor.
@@ -22,11 +23,15 @@ class PlanetsDB
         $this->password = trim($password);
         $this->login = trim($login);
         $this->database = trim($database);
+        $this->created = false;
     }
 
 
     public function insertDataToDatabase($array)
     {
+        if ($this->created == false) {
+            $this->createTable(); //проерка, создана ли таблица
+        }
         try {
             $dbh = new PDO("mysql:host=$this->host;dbname=$this->database", $this->login, $this->password);
             //check planet alredy in databese
@@ -62,9 +67,7 @@ class PlanetsDB
             }
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage();
-            exit();
         }
-
     }
 
 
@@ -92,19 +95,12 @@ class PlanetsDB
                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             ');
             $stmt->execute([]);
-            return true;
+            $this->created = true;
 
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage();
             return false;
         };
-    }
-
-      //
-    public function prepareDataToInsert($array)
-    {
-        $this->createTable(); //проерка, создана ли таблица
-        $this->insertDataToDatabase($array);
     }
 
 }
