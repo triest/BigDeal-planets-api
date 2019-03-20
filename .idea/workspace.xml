@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f9710000-a60e-4022-8c2e-20ce4d2014af" name="Default" comment="Get all data in loop.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlanetsApi.php" beforeDir="false" afterPath="$PROJECT_DIR$/PlanetsApi.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PlanetsDB.php" beforeDir="false" afterPath="$PROJECT_DIR$/PlanetsDB.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connect.txt" beforeDir="false" afterPath="$PROJECT_DIR$/connect.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,8 +36,8 @@
       <file leaf-file-name="PlanetsDB.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PlanetsDB.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+            <state relative-caret-position="441">
+              <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -47,8 +45,8 @@
       <file leaf-file-name="PlanetsApi.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PlanetsApi.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="794">
-              <caret line="70" column="45" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
+            <state relative-caret-position="369">
+              <caret line="45" column="17" lean-forward="true" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -153,7 +151,7 @@
       <workItem from="1553015144987" duration="3753000" />
       <workItem from="1553019421260" duration="4631000" />
       <workItem from="1553056713539" duration="3133000" />
-      <workItem from="1553076175263" duration="12373000" />
+      <workItem from="1553076175263" duration="15649000" />
     </task>
     <task id="LOCAL-00001" summary="Get first array with planets">
       <created>1552982938731</created>
@@ -187,7 +185,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46077000" />
+    <option name="totallyTimeSpent" value="49353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -362,15 +360,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PlanetsApi.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="794">
-          <caret line="70" column="45" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
+        <state relative-caret-position="369">
+          <caret line="45" column="17" lean-forward="true" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PlanetsDB.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+        <state relative-caret-position="441">
+          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
         </state>
       </provider>
     </entry>
