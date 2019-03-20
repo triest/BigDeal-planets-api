@@ -30,7 +30,7 @@ class PlanetsApi
 
 
     //запрос к API
-    private function GetRequwest()
+    private function MakeRequwest()
     {
         $this->resivedStrings = array();
         try {
@@ -46,7 +46,7 @@ class PlanetsApi
     {
         $planetDn = new PlanetsDB($this->host, $this->databese, $this->login, $this->password); //класс, работающий с базой данных
         while ($this->usr != null) {
-            $this->GetRequwest();
+            $this->MakeRequwest();
             foreach ($this->resivedStrings as $string) { //данные по планетам
                 $json = json_decode($string, true);  //
                 $planetArray = $json["results"];   //плдучаем массив с планетами
@@ -88,7 +88,5 @@ class PlanetsApi
             print "Error!: ".$e->getMessage();
             exit();
         }
-
     }
-
 }

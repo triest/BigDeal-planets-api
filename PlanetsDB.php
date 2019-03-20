@@ -7,7 +7,7 @@ class PlanetsDB
     public $password = "";
     public $login;
     public $database;
-    public $created;
+    public $created; //если таблица существует- true
 
     /**
      * PlanetsDB constructor.
@@ -30,7 +30,9 @@ class PlanetsDB
     public function insertDataToDatabase($array)
     {
         if ($this->created == false) {
-            $this->createTable(); //проерка, создана ли таблица
+            if (!$this->createTable()) {
+                exit(["Error creating table."]);
+            } //проерка, создана ли таблица
         }
         try {
             $dbh = new PDO("mysql:host=$this->host;dbname=$this->database", $this->login, $this->password);
@@ -96,7 +98,7 @@ class PlanetsDB
             ');
             $stmt->execute([]);
             $this->created = true;
-
+            return true;
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage();
             return false;
