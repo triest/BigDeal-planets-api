@@ -7,23 +7,6 @@ class PlanetsDB
     private $login = "root";
     private $databese = "planets_db";
 
-    /**
-     * PlanetsDB constructor.
-     *
-     * @param string $host
-     * @param string $password
-     * @param string $login
-     * @param string $databese
-     */
-    /*  public function __construct(string $host, string $password, string $login, string $databese)
-      {
-          $this->host = $host;
-          $this->password = $password;
-          $this->login = $login;
-          $this->databese = $databese;
-      }
-  */
-
 
     public function insertDataTodataBese($array)
     {
@@ -35,9 +18,7 @@ class PlanetsDB
                 'name' => $array["name"],
             ]);
             $row = $stmt->rowCount();
-            if ($row > 0) {
-
-            } else {
+            if ($row == 0) {
                 $stmt = $dbh->prepare('INSERT INTO planets( name,rotation_period,orbital_period,
                                                                   diameter,climate,gravity,
                                                                   terrain,surface_water,population,
@@ -61,10 +42,10 @@ class PlanetsDB
                     'edited' => $array["edited"],
                     'url' => $array["url"],
                 ]);
-             }
+            }
         } catch (PDOException $e) {
-            print "Error!: ".$e->getMessage()."<br/>";
-            echo "Eror";
+            print "Error!: ".$e->getMessage();
+            exit();
         }
 
     }
