@@ -1,10 +1,6 @@
 <?php
 require_once "planetsApi.php";
 
-
-
-
-echo "planets";
 $planets = new PlanetsApi();
-$planets->readConnectProperty();
+//$planets->readConnectProperty(); //считывае данных для соединения с БД
 $planets->printRez();

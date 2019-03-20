@@ -24,8 +24,8 @@ try {
         $stmt = $dbh->prepare('CREATE TABLE IF NOT EXISTS `planets` (
   `id` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
-  `rotation_period` int(11) DEFAULT NULL,
-  `orbital_period` int(11) DEFAULT NULL,
+  `rotation_period` varchar (11) DEFAULT NULL,
+  `orbital_period` varchar (11) DEFAULT NULL,
   `diameter` bigint(20) DEFAULT NULL,
   `climate` varchar(50) DEFAULT NULL,
   `gravity` varchar(50) DEFAULT NULL,

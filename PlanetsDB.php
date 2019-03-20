@@ -6,13 +6,7 @@ class PlanetsDB
     public $host;
     public $password = "";
     public $login;
-    //  public $databese="planets_db";
-
-
-    //  public $host;
-//    public $password;
-    //   public $login;
-    public $databese;
+    public $database;
 
     /**
      * PlanetsDB constructor.
@@ -20,21 +14,21 @@ class PlanetsDB
      * @param string $host
      * @param string $password
      * @param string $login
-     * @param string $databese
+     * @param string $database
      */
-    public function __construct($host, $databese, $login, $password)
+    public function __construct($host, $database, $login, $password)
     {
-        $this->host=trim($host);
-        // $this->password = $password;
-        $this->login = $login;
-        $this->databese = $databese;
+        $this->host = trim($host);  //delete spaces for login,pass,host,database
+        $this->password = trim($password);
+        $this->login = trim($login);
+        $this->database = trim($database);
     }
 
 
-    public function insertDataTodataBese($array)
+    public function insertDataToDatabase($array)
     {
         try {
-            $dbh = new PDO("mysql:host=$this->host;dbname=$this->databese", $this->login, $this->password);
+            $dbh = new PDO("mysql:host=$this->host;dbname=$this->database", $this->login, $this->password);
             //check planet alredy in databese
             $stmt = $dbh->prepare('SELECT name from planets where name=:name');
             $stmt->execute([
@@ -74,109 +68,43 @@ class PlanetsDB
     }
 
 
+    //проверка, создана ли таблица. Если нет, создаёт
     public function createTable()
     {
         try {
-            $dbh = new PDO("mysql:host=$this->host;dbname=$this->databese", $this->login, $this->password);
-            //check planet alredy in databese
+            $dbh = new PDO("mysql:host=$this->host;dbname=$this->database", $this->login, $this->password);
+            //check planet alredy in database
             $stmt = $dbh->prepare('CREATE TABLE IF NOT EXISTS `planets` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `rotation_period` int(11) DEFAULT NULL,
-  `orbital_period` int(11) DEFAULT NULL,
-  `diameter` bigint(20) DEFAULT NULL,
-  `climate` varchar(50) DEFAULT NULL,
-  `gravity` varchar(50) DEFAULT NULL,
-  `terrain` varchar(50) DEFAULT NULL,
-  `surface_water` tinyint(4) DEFAULT NULL,
-  `population` bigint(20) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `edited` datetime DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-');
+                          `id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                          `name` varchar(100) DEFAULT NULL,
+                          `rotation_period` varchar (11) DEFAULT NULL,
+                          `orbital_period` varchar (11) DEFAULT NULL,
+                          `diameter` bigint(20) DEFAULT NULL,
+                          `climate` varchar(50) DEFAULT NULL,
+                          `gravity` varchar(50) DEFAULT NULL,
+                          `terrain` varchar(50) DEFAULT NULL,
+                          `surface_water` tinyint(4) DEFAULT NULL,
+                          `population` bigint(20) DEFAULT NULL,
+                          `created` datetime DEFAULT NULL,
+                          `edited` datetime DEFAULT NULL,
+                          `url` varchar(255) DEFAULT NULL,
+                          `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+                            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ');
             $stmt->execute([]);
-
             return true;
 
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage();
-
             return false;
         };
     }
 
-
+      //
     public function prepareDataToInsert($array)
     {
-        $this->createTable();
-        $this->insertDataTodataBese($array);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getHost(): string
-    {
-        return $this->host;
-    }
-
-    /**
-     * @param string $host
-     */
-    public function setHost(string $host): void
-    {
-        $this->host = $host;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLogin(): string
-    {
-        return $this->login;
-    }
-
-    /**
-     * @param string $login
-     */
-    public function setLogin(string $login): void
-    {
-        $this->login = $login;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDatabese(): string
-    {
-        return $this->databese;
-    }
-
-    /**
-     * @param string $databese
-     */
-    public function setDatabese(string $databese): void
-    {
-        $this->databese = $databese;
+        $this->createTable(); //проерка, создана ли таблица
+        $this->insertDataToDatabase($array);
     }
 
 }
