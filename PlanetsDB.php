@@ -3,10 +3,16 @@
 class PlanetsDB
 {
 
-    private $host;
-    private $password ;
-    private $login ;
-    private $databese;
+    public $host="127.0.0.1";
+    public $password="" ;
+    public $login="root" ;
+  //  public $databese="planets_db";
+
+
+ //  public $host;
+//    public $password;
+ //   public $login;
+    public $databese;
 
     /**
      * PlanetsDB constructor.
@@ -16,12 +22,18 @@ class PlanetsDB
      * @param string $login
      * @param string $databese
      */
-    public function __construct(string $host, string $password, string $login, string $databese)
+    public function __construct($host,$databese, $login,$password)
     {
-        $this->host = $host;
-        $this->password = $password;
+        echo "Constuct:";
+        echo $host;
+        echo $databese;
+        echo $login;
+      echo "pass: "; echo $password;
+      //  $this->host = $host;
+   //     $this->password = $password;
         $this->login = $login;
         $this->databese = $databese;
+
     }
 
 

@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/PlanetsApi.php" beforeDir="false" afterPath="$PROJECT_DIR$/PlanetsApi.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PlanetsDB.php" beforeDir="false" afterPath="$PROJECT_DIR$/PlanetsDB.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/connect.txt" beforeDir="false" afterPath="$PROJECT_DIR$/connect.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/planets.php" beforeDir="false" afterPath="$PROJECT_DIR$/planets.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,15 +25,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlanetsApi.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/PlanetsApi.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="40" column="7" lean-forward="true" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
@@ -45,11 +35,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlanetsDB.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PlanetsDB.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PlanetsDB.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+            <state relative-caret-position="544">
+              <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlanetsApi.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PlanetsApi.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="794">
+              <caret line="70" column="45" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -57,8 +56,8 @@
       <file leaf-file-name="CreateTable.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sql/CreateTable.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="16" selection-start-line="16" selection-end-line="43" selection-end-column="33" />
+            <state relative-caret-position="68">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -73,8 +72,8 @@
       <list>
         <option value="$PROJECT_DIR$/sql/CreateTable.php" />
         <option value="$PROJECT_DIR$/planets.php" />
-        <option value="$PROJECT_DIR$/PlanetsDB.php" />
         <option value="$PROJECT_DIR$/PlanetsApi.php" />
+        <option value="$PROJECT_DIR$/PlanetsDB.php" />
       </list>
     </option>
   </component>
@@ -154,7 +153,7 @@
       <workItem from="1553015144987" duration="3753000" />
       <workItem from="1553019421260" duration="4631000" />
       <workItem from="1553056713539" duration="3133000" />
-      <workItem from="1553076175263" duration="6264000" />
+      <workItem from="1553076175263" duration="12373000" />
     </task>
     <task id="LOCAL-00001" summary="Get first array with planets">
       <created>1552982938731</created>
@@ -188,7 +187,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39968000" />
+    <option name="totallyTimeSpent" value="46077000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -339,25 +338,11 @@
     <entry file="file://$PROJECT_DIR$/PlanetsApi.php" />
     <entry file="file://$PROJECT_DIR$/PlanetsDB.php" />
     <entry file="file://$PROJECT_DIR$/librari.php" />
-    <entry file="file://$PROJECT_DIR$/sql/CreateTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="16" selection-start-line="16" selection-end-line="43" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor />
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PlanetsDB.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -368,10 +353,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sql/CreateTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PlanetsApi.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="40" column="7" lean-forward="true" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
+        <state relative-caret-position="794">
+          <caret line="70" column="45" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlanetsDB.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
         </state>
       </provider>
     </entry>

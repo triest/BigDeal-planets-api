@@ -31,8 +31,9 @@ class PlanetsApi
     }
 
     public function printRez()
-    {
-        $planetDn = new PlanetsDB($this->host, $this->password, $this->login, $this->databese);
+    {  echo "\n";
+
+        $planetDn = new PlanetsDB($this->host, $this->databese, $this->login, $this->password);
         while ($this->usr != null) {
             $this->GetRequwest();
             foreach ($this->resivedStrings as $string) {
@@ -40,6 +41,7 @@ class PlanetsApi
                 $planetArray = $json["results"];   //плдучаем массив с планетами
                 $this->usr = $json["next"];
                 foreach ($planetArray as $item) {
+                 //   print_r($item);
                     $planetDn->prepareDataToInsert($item);
                 }
             }
@@ -54,16 +56,20 @@ class PlanetsApi
                 $arr=explode("=",$line);
               //  print_r($arr);
                 if($arr[0]=="host"){
+                    $arr[1]=str_replace('/\s+/','',$arr[1]);
                     $this->host=$arr[1];
                 }
                 if($arr[0]=="login"){
-                    $this->login=$arr[1];
+                    $arr[1]=preg_replace('/\s+/','',$arr[1]);
+                    $this->login= $arr[1];
                 }
                 if($arr[0]=="password"){
-                    $this->password=$arr[1];
+                    $temp=str_replace('/\s+/','',$arr[1]);
+                    $this->password=$temp;
                 }
-                if($arr[0]=="databese"){
-                    $this->databese=$arr[1];
+                if($arr[0]=="database"){
+                    $temp=str_replace('/\s+/','',$arr[1]);
+                    $this->databese=$temp;
                 }
             }
         }
