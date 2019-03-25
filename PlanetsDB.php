@@ -8,6 +8,7 @@ class PlanetsDB
     public $login;
     public $database;
     public $created; //если таблица существует- true
+    public $table;
 
     /**
      * PlanetsDB constructor.
@@ -72,6 +73,28 @@ class PlanetsDB
         }
     }
 
+    public function insertMultiRowsToDatabase($dataVals)
+    {
+        $pdo = new PDO("mysql:host=$this->host;dbname=$this->database", $this->login, $this->password);
+        $columnNames = array_keys($dataVals[0]);
+        unset($columnNames["8"]);
+        unset($columnNames["9"]);
+        foreach ($dataVals as $arrayIndex => $row) {
+            $params = array();
+            foreach ($row as $columnName => $columnValue) {
+                $param = ":".$columnName.$arrayIndex;
+                $params[] = $param;
+                $toBind[$param] = $columnValue;
+            }
+            $rowsSQL[] = "(".implode(", ", $params).")";
+        }
+        $sql = "INSERT INTO `$this->table` (".implode(", ", $columnNames).") VALUES ".implode(", ", $rowsSQL);
+       $pdoStatement = $pdo->prepare($sql);
+      foreach ($toBind as $param => $val) {
+            $pdoStatement->bindParam($param, $val);
+        }
+        $pdoStatement->execute();
+    }
 
     //проверка, создана ли таблица. Если нет, создаёт
     public function createTable()
@@ -98,9 +121,11 @@ class PlanetsDB
             ');
             $stmt->execute([]);
             $this->created = true;
+
             return true;
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage();
+
             return false;
         };
     }

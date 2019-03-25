@@ -27,8 +27,6 @@ class PlanetsApi
     } //переменныя для считывание ответа от API
 
 
-
-
     //запрос к API
     private function MakeRequwest()
     {
@@ -44,18 +42,22 @@ class PlanetsApi
     //считываеие данных из запроса
     public function printRez()
     {
-        $planetDn = new PlanetsDB($this->host, $this->databese, $this->login, $this->password); //класс, работающий с базой данных
+        $planetDn = new PlanetsDB($this->host, $this->databese, $this->login,
+            $this->password); //класс, работающий с базой данных
+        $arr = [];
         while ($this->usr != null) {
             $this->MakeRequwest();
             foreach ($this->resivedStrings as $string) { //данные по планетам
                 $json = json_decode($string, true);  //
                 $planetArray = $json["results"];   //плдучаем массив с планетами
                 $this->usr = $json["next"];  //данные рзбиты по страницам. Адрес следуюзей стрницы в переменной next. Если $net==null ->данные кончились
-                foreach ($planetArray as $item) {   //проход по массиву м планетами
-                    $planetDn->insertDataToDatabase($item);
+                foreach ($planetArray as $planet) {
+                    array_push($arr, $planet);
                 }
             }
         }
+      //  print_r($arr);
+        $planetDn->insertMultiRowsToDatabase($arr);
     }
 
     //считываеие данных для подключения из файла connect.txt
