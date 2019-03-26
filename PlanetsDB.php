@@ -77,23 +77,63 @@ class PlanetsDB
     {
         $pdo = new PDO("mysql:host=$this->host;dbname=$this->database", $this->login, $this->password);
         $columnNames = array_keys($dataVals[0]);
-        unset($columnNames["8"]);
-        unset($columnNames["9"]);
+
+        unset($columnNames["10"]);
+        unset($columnNames["9"]);       //проблема в terrain
+        //надо удалить Array из rowsSQL
+        $toBind = null;
         foreach ($dataVals as $arrayIndex => $row) {
             $params = array();
             foreach ($row as $columnName => $columnValue) {
-                $param = ":".$columnName.$arrayIndex;
+                //$param = ":".$columnName.$arrayIndex;
+                $param = $row[$columnName];
                 $params[] = $param;
                 $toBind[$param] = $columnValue;
             }
-            $rowsSQL[] = "(".implode(", ", $params).")";
+            $rowsSQL[] = "(".implode(", \\\\", $params).")";
         }
-        $sql = "INSERT INTO `$this->table` (".implode(", ", $columnNames).") VALUES ".implode(", ", $rowsSQL);
-       $pdoStatement = $pdo->prepare($sql);
-      foreach ($toBind as $param => $val) {
+        // print_r($columnNames);
+        ///  print_r($params);die();
+
+        $sql = "INSERT INTO `planets` (".implode(", ", $columnNames).") VALUES ".implode(", ", $rowsSQL);
+
+        //  echo $sql;
+        $pdoStatement = $pdo->prepare($sql);
+        foreach ($toBind as $param => $val) {
             $pdoStatement->bindParam($param, $val);
         }
         $pdoStatement->execute();
+    }
+
+    public function insertMultiRowsMySQLi($dataVals)
+    {
+
+        $mysqli = new mysqli($this->host, $this->login, $this->password, $this->database);
+        if ($mysqli->connect_error) {
+            die("Connection failed: ".$mysqli->connect_error);
+        }
+        $sql = "INSERT INTO `planets` (name, rotation_period, orbital_period, diameter, climate, gravity, terrain, surface_water, population,created,edited, url) VALUES";
+        $string = "";
+        foreach ($dataVals as $item) {
+            $string .= "(\"".$item["name"]."\",\"".$item["rotation_period"]."\",\"".$item["orbital_period"]."\",\"".$item["diameter"]."\",\""
+                .$item["climate"]."\",\"".$item["gravity"]."\",\"".$item["terrain"]."\",\"".$item["surface_water"]."\",\"".$item["population"]."\",\""
+                .$item["created"]."\",\"".$item["edited"]."\",\"".$item["url"]."\"),";
+            $sql = $sql.$string;
+            echo $sql;
+            die();
+        }
+        $sql = $sql.$string;
+        echo $sql;
+        die();
+
+
+        if ($mysqli->query($sql) === true) {
+            echo "New record created successfully";
+            die();
+        } else {
+            echo "Error: ".$sql."<br>".$mysqli->error;
+
+        }
     }
 
     //проверка, создана ли таблица. Если нет, создаёт

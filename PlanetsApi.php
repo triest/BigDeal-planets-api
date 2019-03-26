@@ -57,7 +57,8 @@ class PlanetsApi
             }
         }
       //  print_r($arr);
-        $planetDn->insertMultiRowsToDatabase($arr);
+     //   $planetDn->insertMultiRowsToDatabase($arr);
+        $planetDn->insertMultiRowsMySQLi($arr);
     }
 
     //считываеие данных для подключения из файла connect.txt
