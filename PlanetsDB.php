@@ -116,18 +116,13 @@ class PlanetsDB
         $string = "";
         $temp = "";
         foreach ($dataVals as $item) {
-            $string .= "(\"".$item["name"]."\",\"".$item["rotation_period"]."\",\"".$item["orbital_period"]."\",\"".$item["diameter"]."\",\""
+            $string = "(\"".$item["name"]."\",\"".$item["rotation_period"]."\",\"".$item["orbital_period"]."\",\"".$item["diameter"]."\",\""
                 .$item["climate"]."\",\"".$item["gravity"]."\",\"".$item["terrain"]."\",\"".$item["surface_water"]."\",\"".$item["population"]."\",\""
                 .$item["created"]."\",\"".$item["edited"]."\",\"".$item["url"]."\"),";
-            $temp = $temp.$string;
-
+            $temp .= $string;
         }
         $sql = $sql.$temp;
-        // delete last "," from qwery string
-        $sql=substr($sql, 0, -1);
-       //$this->fileOut($sql);
-
-
+        $sql = substr($sql, 0, -1);
         if ($mysqli->query($sql) === true) {
             echo "New record created successfully";
             die();
@@ -140,7 +135,7 @@ class PlanetsDB
     //вывод в файл для отладки
     public function fileOut($string)
     {
-       echo file_put_contents("qwery.txt", $string);
+        echo file_put_contents("qwery.txt", $string);
     }
 
     //проверка, создана ли таблица. Если нет, создаёт
