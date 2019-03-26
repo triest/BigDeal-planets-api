@@ -114,17 +114,18 @@ class PlanetsDB
         }
         $sql = "INSERT INTO `planets` (name, rotation_period, orbital_period, diameter, climate, gravity, terrain, surface_water, population,created,edited, url) VALUES";
         $string = "";
+        $temp = "";
         foreach ($dataVals as $item) {
             $string .= "(\"".$item["name"]."\",\"".$item["rotation_period"]."\",\"".$item["orbital_period"]."\",\"".$item["diameter"]."\",\""
                 .$item["climate"]."\",\"".$item["gravity"]."\",\"".$item["terrain"]."\",\"".$item["surface_water"]."\",\"".$item["population"]."\",\""
                 .$item["created"]."\",\"".$item["edited"]."\",\"".$item["url"]."\"),";
-            $sql = $sql.$string;
-            echo $sql;
-            die();
+            $temp = $temp.$string;
+
         }
-        $sql = $sql.$string;
-        echo $sql;
-        die();
+        $sql = $sql.$temp;
+        // delete last "," from qwery string
+        $sql=substr($sql, 0, -1);
+       //$this->fileOut($sql);
 
 
         if ($mysqli->query($sql) === true) {
@@ -134,6 +135,12 @@ class PlanetsDB
             echo "Error: ".$sql."<br>".$mysqli->error;
 
         }
+    }
+
+    //вывод в файл для отладки
+    public function fileOut($string)
+    {
+       echo file_put_contents("qwery.txt", $string);
     }
 
     //проверка, создана ли таблица. Если нет, создаёт
