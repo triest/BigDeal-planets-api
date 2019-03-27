@@ -30,7 +30,9 @@ class PlanetsDB
 
     public function insertMultiRowsToDatabase($dataVals)
     {
-        $this->createTable();
+        if($this->createTable()==false){
+            exit("Error creating table.");
+        }
         $mysqli = new mysqli($this->host, $this->login, $this->password, $this->database);
         if ($mysqli->connect_error) {
             die("Connection failed: ".$mysqli->connect_error);
@@ -98,11 +100,9 @@ class PlanetsDB
             ');
             $stmt->execute([]);
             $this->created = true;
-
             return true;
         } catch (PDOException $e) {
             print "Error!: ".$e->getMessage();
-
             return false;
         };
     }
