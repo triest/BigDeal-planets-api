@@ -28,107 +28,42 @@ class PlanetsDB
     }
 
 
-    public function insertDataToDatabase($array)
-    {
-        if ($this->created == false) {
-            if (!$this->createTable()) {
-                exit(["Error creating table."]);
-            } //проерка, создана ли таблица
-        }
-        try {
-            $dbh = new PDO("mysql:host=$this->host;dbname=$this->database", $this->login, $this->password);
-            //check planet alredy in databese
-            $stmt = $dbh->prepare('SELECT name from planets where name=:name');
-            $stmt->execute([
-                'name' => $array["name"],
-            ]);
-            $row = $stmt->rowCount();
-            if ($row == 0) {
-                $stmt = $dbh->prepare('INSERT INTO planets( name,rotation_period,orbital_period,
-                                                                  diameter,climate,gravity,
-                                                                  terrain,surface_water,population,
-                                                                 created,edited,url   ) 
-                                                              VALUES (:name,:rotation_period,:orbital_period,
-                                                              :diameter,:climate,:gravity,
-                                                              :terrain,:surface_water,:population,
-                                                                 :created,:edited,:url  )');
-
-                $stmt->execute([
-                    'name' => $array["name"],
-                    'rotation_period' => $array["rotation_period"],
-                    'orbital_period' => $array["orbital_period"],
-                    'diameter' => $array["diameter"],
-                    'climate' => $array["climate"],
-                    'gravity' => $array["gravity"],
-                    'terrain' => $array["terrain"],
-                    'surface_water' => $array["surface_water"],
-                    'population' => $array["population"],
-                    'created' => $array["created"],
-                    'edited' => $array["edited"],
-                    'url' => $array["url"],
-                ]);
-            }
-        } catch (PDOException $e) {
-            print "Error!: ".$e->getMessage();
-        }
-    }
-
     public function insertMultiRowsToDatabase($dataVals)
     {
-        $pdo = new PDO("mysql:host=$this->host;dbname=$this->database", $this->login, $this->password);
-        $columnNames = array_keys($dataVals[0]);
-
-        unset($columnNames["10"]);
-        unset($columnNames["9"]);       //проблема в terrain
-        //надо удалить Array из rowsSQL
-        $toBind = null;
-        foreach ($dataVals as $arrayIndex => $row) {
-            $params = array();
-            foreach ($row as $columnName => $columnValue) {
-                //$param = ":".$columnName.$arrayIndex;
-                $param = $row[$columnName];
-                $params[] = $param;
-                $toBind[$param] = $columnValue;
-            }
-            $rowsSQL[] = "(".implode(", \\\\", $params).")";
-        }
-        // print_r($columnNames);
-        ///  print_r($params);die();
-
-        $sql = "INSERT INTO `planets` (".implode(", ", $columnNames).") VALUES ".implode(", ", $rowsSQL);
-
-        //  echo $sql;
-        $pdoStatement = $pdo->prepare($sql);
-        foreach ($toBind as $param => $val) {
-            $pdoStatement->bindParam($param, $val);
-        }
-        $pdoStatement->execute();
-    }
-
-    public function insertMultiRowsMySQLi($dataVals)
-    {
-
+        $this->createTable();
         $mysqli = new mysqli($this->host, $this->login, $this->password, $this->database);
         if ($mysqli->connect_error) {
             die("Connection failed: ".$mysqli->connect_error);
         }
         $sql = "INSERT INTO `planets` (name, rotation_period, orbital_period, diameter, climate, gravity, terrain, surface_water, population,created,edited, url) VALUES";
-        $string = "";
         $temp = "";
+        $findPlanet = $mysqli->prepare('SELECT COUNT(*) from planets where name=?');
         foreach ($dataVals as $item) {
+            //смотрим, есть ли эта планета в таблице.
+            $findPlanet->bind_param('s', $item["name"]);
+            $findPlanet->execute();
+            $data = $findPlanet->get_result();
+            $row = mysqli_fetch_array($data);
+            if ($row["COUNT(*)"] > 0) {
+                continue;
+            }
             $string = "(\"".$item["name"]."\",\"".$item["rotation_period"]."\",\"".$item["orbital_period"]."\",\"".$item["diameter"]."\",\""
                 .$item["climate"]."\",\"".$item["gravity"]."\",\"".$item["terrain"]."\",\"".$item["surface_water"]."\",\"".$item["population"]."\",\""
                 .$item["created"]."\",\"".$item["edited"]."\",\"".$item["url"]."\"),";
             $temp .= $string;
         }
         $sql = $sql.$temp;
+        if (empty($temp)) {
+            echo "no new data to insert";
+            exit();
+        }
         $sql = substr($sql, 0, -1);
         if ($mysqli->query($sql) === true) {
             echo "New record created successfully";
-            die();
+            exit();
         } else {
             echo "Error: ".$sql."<br>".$mysqli->error;
-
+            exit();
         }
     }
 

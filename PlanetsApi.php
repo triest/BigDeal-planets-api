@@ -40,7 +40,7 @@ class PlanetsApi
     }
 
     //считываеие данных из запроса
-    public function printRez()
+    public function printResult()
     {
         $planetDn = new PlanetsDB($this->host, $this->databese, $this->login,
             $this->password); //класс, работающий с базой данных
@@ -56,9 +56,7 @@ class PlanetsApi
                 }
             }
         }
-      //  print_r($arr);
-     //   $planetDn->insertMultiRowsToDatabase($arr);
-        $planetDn->insertMultiRowsMySQLi($arr);
+        $planetDn->insertMultiRowsToDatabase($arr);
     }
 
     //считываеие данных для подключения из файла connect.txt
